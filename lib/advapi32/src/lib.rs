@@ -37,7 +37,19 @@ extern "system" {
         TokenHandle: HANDLE, DisableAllPrivileges: BOOL, NewState: PTOKEN_PRIVILEGES,
         BufferLength: DWORD, PreviousState: PTOKEN_PRIVILEGES, ReturnLength: PDWORD,
     ) -> BOOL;
-    // pub fn AllocateAndInitializeSid();
+    pub fn AllocateAndInitializeSid(
+        pIdentifierAuthority: PSID_IDENTIFIER_AUTHORITY,
+        nSubAuthorityCount: BYTE,
+        dwSubAuthority0: DWORD,
+        dwSubAuthority1: DWORD,
+        dwSubAuthority2: DWORD,
+        dwSubAuthority3: DWORD,
+        dwSubAuthority4: DWORD,
+        dwSubAuthority5: DWORD,
+        dwSubAuthority6: DWORD,
+        dwSubAuthority7: DWORD,
+        pSid: *mut PSID,
+        ) -> BOOL;
     pub fn AllocateLocallyUniqueId(Luid: PLUID) -> BOOL;
     pub fn AreAllAccessesGranted(GrantedAccess: DWORD, DesiredAccess: DWORD) -> BOOL;
     pub fn AreAnyAccessesGranted(GrantedAccess: DWORD, DesiredAccess: DWORD) -> BOOL;
@@ -100,7 +112,7 @@ extern "system" {
     // pub fn ChangeServiceConfigA();
     // pub fn ChangeServiceConfigW();
     // pub fn CheckForHiberboot();
-    // pub fn CheckTokenMembership();
+    pub fn CheckTokenMembership(TokenHandle: HANDLE, SidToCheck: PSID, IsMember: PBOOL) -> BOOL;
     // pub fn ClearEventLogA();
     // pub fn ClearEventLogW();
     // pub fn CloseCodeAuthzLevel();
@@ -394,7 +406,7 @@ extern "system" {
     // pub fn FreeEncryptedFileMetadata();
     // pub fn FreeEncryptionCertificateHashList();
     // pub fn FreeInheritedFromArray();
-    // pub fn FreeSid();
+    pub fn FreeSid(pSid: PSID) -> PVOID;
     // pub fn GetAccessPermissionsForObjectA();
     // pub fn GetAccessPermissionsForObjectW();
     // pub fn GetAce();
